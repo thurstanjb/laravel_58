@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => '/comments', 'as' => 'comments.'], function(){
+    Route::get('/{comment}', 'CommentController@show');
+    Route::patch('/{comment}', 'CommentController@update');
+});
