@@ -8,7 +8,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserTest extends TestCase
+class CommentsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -17,24 +17,22 @@ class UserTest extends TestCase
      */
     public function _it_can_create_its_model_factory()
     {
-        $user = create(User::class);
+        $comment = create(Comment::class);
 
-        $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'email' => $user->email
+        $this->assertDatabaseHas('comments', [
+            'id' => $comment->id,
+            'user_id' => $comment->user_id
         ]);
     }
 
     /**
      * @test
      */
-    public function _it_can_return_its_comments()
+    public function _it_can_return_its_user()
     {
         $user = create(User::class);
-
         $comment = create(Comment::class, ['user_id' => $user->id]);
-        $comment1 = create(Comment::class, ['user_id' => $user->id]);
 
-        $this->assertCount(2, $user->comments);
+        $this->assertEquals($user->name, $comment->user->name);
     }
 }
