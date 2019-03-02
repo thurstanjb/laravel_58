@@ -46,4 +46,5 @@ class CommentPolicyTest extends TestCase
         $response = $this->get('http://laravel58.test/comments/'.$comment->id);
         $response->assertStatus(200);
     }
+
 }
